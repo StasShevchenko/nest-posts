@@ -1,7 +1,7 @@
 import {Controller, Get, UseGuards} from '@nestjs/common';
 import {PostsService} from "./posts.service";
-import {PostDto} from "./dto/post.dto";
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
+import {PostDto} from "./dto/post.dto";
 
 @Controller('posts')
 export class PostsController {
@@ -13,4 +13,6 @@ export class PostsController {
     getAllPosts(): Promise<PostDto[]>{
         return this.postsService.getPostsList()
     }
+
+
 }

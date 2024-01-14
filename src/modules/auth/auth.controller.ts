@@ -1,10 +1,10 @@
-import {Body, Controller, Post, UnauthorizedException} from '@nestjs/common';
+import {Body, Controller, Post, Req, UseGuards} from '@nestjs/common';
 import {AuthService} from "./auth.service";
-import {JwtService} from "@nestjs/jwt";
 import {LoginDto} from "./dto/login.dto";
-import {UserDto} from "../user/dto/userDto";
+import {RegisterUserDto} from "../user/dto/registerUser.dto";
 import {AuthEntity} from "./dto/auth.dto";
 import {RefreshDto} from "./dto/refresh.dto";
+import {JwtAuthGuard} from "./jwt-auth.guard";
 
 @Controller('auth')
 export class AuthController {
@@ -17,12 +17,20 @@ export class AuthController {
     }
 
     @Post('register')
-    register(@Body() user: UserDto): Promise<AuthEntity>{
+    register(@Body() user: RegisterUserDto): Promise<AuthEntity>{
         return this.authService.register(user)
     }
 
     @Post('refresh')
     refresh(@Body() refresh: RefreshDto): Promise<AuthEntity>{
         return this.authService.refresh(refresh.refreshToken)
+    }
+
+    @Post('logout')
+    @UseGuards(JwtAuthGuard)
+    logout(
+        @Req() request
+    ){
+        return this.authService.clearRefresh(request.user.userId)
     }
 }

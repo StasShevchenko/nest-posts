@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, Req} from '@nestjs/common';
 import {PostDto} from "./dto/post.dto";
 
 @Injectable()

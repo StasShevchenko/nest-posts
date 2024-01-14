@@ -6,7 +6,8 @@ import {JwtModule} from "@nestjs/jwt";
 import {PassportModule} from "@nestjs/passport";
 import {JwtStrategy} from "./strategy/jwt.strategy";
 
-export const jwtSecret = 'zjP9h6ZI5LoSKCRj';
+export const accessJwtSecret = 'zjP9h6ZI5LoSKCRj';
+export const refreshJwtSecret = 'anM452AI5hIVqX32'
 
 @Module({
     controllers: [AuthController],
